@@ -1,0 +1,76 @@
+<div>
+  <h1>Students Catalogue</h1>
+  <h2>{{ isEditChallenge ? 'Edit Challenge' : 'Add new Challenge' }}</h2>
+
+  <form [formGroup]="ChallengeForm" #form='ngForm' (submit)="onSubmit()">
+
+    <mat-form-field style="width: 100%">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Your title" formControlName="title"  [(ngModel)]="challengeData.title" required>
+      <div *ngIf="title.invalid && (title.dirty || title.touched)">
+        <mat-error *ngIf="title.errors?.['maxLength']">You must enter up to 60 characters</mat-error>
+        <mat-error *ngIf="title.errors?.['required']">Title is required.</mat-error>
+      </div>
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <mat-label>urlToImage</mat-label>
+      <input matInput placeholder="Your urlToImage" formControlName="urlToImage" [(ngModel)]="challengeData.urlToImage" required>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <mat-label>challengeType</mat-label>
+      <input matInput placeholder="Your challengeType" formControlName="challengeType"  [(ngModel)]="challengeData.challengeType" required>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <mat-label>BusinessId</mat-label>
+      <input matInput placeholder="Your businessId" formControlName="businessId"  [(ngModel)]="challengeData.businessId" required>
+    </mat-form-field>
+    <ng-container *ngIf="isEditChallenge; else elseTemplate">
+    <button mat-button color="primary" >Save</button>
+    <button mat-button color="warn" (click)="cancelChallenge()" aria-label="reset your data form">Cancel</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button mat-button color="primary" (click)="addChallenge()">Add</button>
+    </ng-template>
+  </form>
+
+  <table mat-table [dataSource] ="dataSource" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>#Id</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+    <ng-container matColumnDef="urlToImage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>urlToImage</th>
+      <td mat-cell *matCellDef="let element">
+       <img src="{{element.urlToImage}}" style="width: 50px">
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="challengeType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>challengeType</th>
+      <td mat-cell *matCellDef="let element"> {{element.challengeType}}  </td>
+
+    </ng-container>
+    <ng-container matColumnDef="businessId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>businessId</th>
+      <td mat-cell *matCellDef="let element"> {{element.businessId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="warn" (click)="deleteChallenge(element.id)" aria-label="Delete an specific Offer"><mat-icon>delete</mat-icon></button>
+        <button mat-mini-fab color="accent" (click)="editChallenge(element.id, element)" aria-label="Update an specific Update"><mat-icon>edit</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]"
+                 showFirstLastButtons></mat-paginator>
+</div>

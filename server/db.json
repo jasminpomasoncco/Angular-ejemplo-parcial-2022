@@ -1,0 +1,25 @@
+{
+  "challenges": [
+    {
+      "title": "Challenge 1",
+      "urlToImage": "https://cdn-icons-png.flaticon.com/512/7981/7981733.png",
+      "challengeType": "a",
+      "businessId": "43",
+      "id": 1
+    },
+    {
+      "title": "Challenge",
+      "urlToImage": "https://res.cloudinary.com/fazt/image/upload/c_scale,w_150/v1557373462/links/fazt-silhouette.png",
+      "challengeType": "team",
+      "businessId": "432",
+      "id": 2
+    },
+    {
+      "title": "Challenge 3",
+      "urlToImage": "https://cdn-icons-png.flaticon.com/512/7981/7981733.png",
+      "challengeType": "team",
+      "businessId": "46",
+      "id": 3
+    }
+  ]
+}
